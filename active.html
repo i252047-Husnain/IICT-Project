@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="ProductPage.css">
+</head>
+
+<body>
+
+    <div class="bar">
+        <h1><a href="index.html">Dripz</a></h1>
+        <h4 class="middle-text"><a href="men's.html">Men</a><div class="spacer"></div><a href="Hoodies.html">Hoodies</a> <div class="spacer"></div><a href="women.html">Women</a><div class="spacer"></div><a href="acesories.html">Accesories</a> </h4>
+        <a href="cart(empty).html"><button class="cart"><img src="c.PNG" alt="Description of the image"></button></a>
+    </div>
+   <div class="margin">
+        <div class="box-container">
+            <div class="box">
+                <img src="at.PNG" alt="Description of the image">
+
+               </div>
+            <div class="box">
+                <h2>Active T-Shirt</h2>
+                <h3> $4.00</h3>
+                <h4>Color:Black</h4>
+
+                <h4 >Size: Small</h4>
+                <h2>Prodct Details</h2>
+                <h4>Light, breathable performance tee for the gym, the trail, or wherever</h4>
+                <button class="cart1" onclick="addToCart()">Add To Cart</button>
+
+                <button class="cart2">30 Days Return Policy</button>
+               
+                
+                </div>
+            
+          
+           </div>
+    </div>
+   <script>
+    function addToCart() {
+        let product = {
+            name: "Active T-Shirt",
+            price: 4.00,
+            image: "at.PNG",
+            size: "Small",
+            color: "Black"
+        };
+
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        cart.push(product);
+
+        localStorage.setItem("cart", JSON.stringify(cart));
+
+        alert("Item added to cart!");
+        window.location.href = "cart(empty).html"; // go to cart page
+    }
+</script>
+
+<div class="margin">
+<div class="box-container">
+    
+</div>
+</div>
+
+        
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Dripz. All rights reserved.</p>
+            <ul class="footer-links">
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </div>
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="cart.css">
+    <style>
+        /* Center everything inside the Summary section */
+        .box:nth-child(2) {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+        }
+
+        .cart1 {
+            display: inline-block !important;
+            text-decoration: none !important;
+            padding: 12px 40px !important;
+            margin: 20px 0 !important;
+            background-color: #000 !important;
+            color: #fff !important;
+            border-radius: 5px !important;
+            font-weight: 500 !important;
+            float: none !important;
+            width: auto !important;
+            max-width: fit-content !important;
+        }
+
+        .cart1:hover {
+            background-color: #333 !important;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+        }
+
+        .cart-item img {
+            width: 80px;
+            height: 80px;
+            margin-right: 15px;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-details h4,
+        .cart-item-details h5 {
+            margin: 2px 0;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+        }
+
+        .quantity-controls button {
+            padding: 5px 10px;
+            margin: 0 5px;
+        }
+
+        .remove-btn {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .remove-btn:hover {
+            background-color: darkred;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bar">
+        <h1><a href="index.html">Dripz</a></h1>
+        <h4 class="middle-text">
+            <a href="men's.html">Men</a>
+            <div class="spacer"></div>
+            <a href="Hoodies.html">Hoodies</a>
+            <div class="spacer"></div>
+            <a href="women.html">Women</a>
+            <div class="spacer"></div>
+            <a href="acesories.html">Accessories</a>
+            <div class="spacer"></div>
+            <a href="Login.html">Login</a>
+        </h4>
+        <a href="cart(empty).html">
+            <button class="cart"><img src="c.PNG" alt="Cart"></button>
+        </a>
+    </div>
+
+    <div class="margin">
+        <div class="box-container">
+
+            <!-- Cart Items Section -->
+            <div class="box" id="cart-items">
+                <h2>My Cart</h2>
+                <div id="items-container">
+                    <h4>Your Cart is empty.</h4>
+                </div>
+            </div>
+
+            <!-- Summary Section -->
+            <div class="box">
+                <h2>Summary</h2>
+                <h3 id="subtotal">Sub total = $0.00</h3>
+                <h4>Shipping & taxes are calculated at checkout</h4>
+                <h4>Do you have any promo code?</h4>
+                <a href="checkout.html" style="margin: 20px auto; display: block; width: 350px; height: 50px; text-align: center; background-color: #000; color: white; border-radius: 5px; font-size: 18px; font-family: monospace; line-height: 50px; text-decoration: none;">Checkout</a>
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Dripz. All rights reserved.</p>
+            <ul class="footer-links">
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- Script to display cart items -->
+    <script>
+        function renderCart() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const container = document.getElementById('items-container');
+            const subtotalEl = document.getElementById('subtotal');
+            container.innerHTML = '';
+
+            if (cart.length === 0) {
+                container.innerHTML = '<h4>Your Cart is empty.</h4>';
+                subtotalEl.textContent = 'Sub total = $0.00';
+                return;
+            }
+
+            let subtotal = 0;
+
+            cart.forEach((item, index) => {
+                subtotal += item.price * item.quantity;
+
+                const div = document.createElement('div');
+                div.className = 'cart-item';
+                div.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="cart-item-details">
+                        <h4>${item.name}</h4>
+                        <h5>Color: ${item.color}, Size: ${item.size}</h5>
+                        <div class="quantity-controls">
+                            <button onclick="changeQuantity(${index}, -1)">-</button>
+                            <span>${item.quantity}</span>
+                            <button onclick="changeQuantity(${index}, 1)">+</button>
+                        </div>
+                        <h5>Price: $${(item.price * item.quantity).toFixed(2)}</h5>
+                        <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+
+            subtotalEl.textContent = `Sub total = $${subtotal.toFixed(2)}`;
+        }
+
+        function changeQuantity(index, delta) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart[index].quantity += delta;
+            if (cart[index].quantity <= 0) {
+                cart.splice(index, 1);
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+        }
+
+        function removeItem(index) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+        }
+
+        // Render cart on page load
+        renderCart();
+    </script>
+
+</body>
+</html>

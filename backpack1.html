@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="ProductPage.css">
+</head>
+
+<body>
+
+    <div class="bar">
+        <h1><a href="index.html">Dripz</a></h1>
+        <h4 class="middle-text">
+            <a href="men's.html">Men</a>
+            <div class="spacer"></div>
+            <a href="Hoodies.html">Hoodies</a>
+            <div class="spacer"></div>
+            <a href="women.html">Women</a>
+            <div class="spacer"></div>
+            <a href="acesories.html">Accessories</a>
+            <div class="spacer"></div>
+            <a href="login.html">Login</a>
+        </h4>
+
+        <a href="cart(empty).html">
+            <button class="cart">
+                <img src="c.PNG" alt="Description of the image">
+            </button>
+        </a>
+    </div>
+
+    <div class="margin">
+        <div class="box-container">
+            <div class="box">
+                <img src="14(1).PNG" alt="Description of the image">
+            </div>
+
+            <div class="box">
+                <h2>Backpack</h2>
+                <h3>$9.00</h3>
+                <h4>Color: Black</h4>
+                <h4>Size: Small</h4>
+
+                <h2>Product Details</h2>
+                <h4>Bag measures 17” x 12.5” x 5” / 43 x 31 x 12 cm</h4>
+
+                <!-- Add To Cart with JS -->
+                <button class="cart1" onclick="addToCart()">Add To Cart</button>
+                <button class="cart2">30 Days Return Policy</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Dripz. All rights reserved.</p>
+            <ul class="footer-links">
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- ADD TO CART SCRIPT -->
+    <script>
+        function addToCart() {
+            const product = {
+                name: "Backpack",
+                price: 9.00,
+                color: "Black",
+                size: "Small",
+                image: "14(1).PNG",
+                quantity: 1
+            };
+
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+            // Check if product already exists
+            let existing = cart.find(item => 
+                item.name === product.name &&
+                item.color === product.color &&
+                item.size === product.size
+            );
+
+            if (existing) {
+                existing.quantity += 1;  
+            } else {
+                cart.push(product);
+            }
+
+            localStorage.setItem("cart", JSON.stringify(cart));
+            alert("Product added to cart!");
+        }
+    </script>
+
+</body>
+</html>
